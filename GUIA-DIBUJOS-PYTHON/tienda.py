@@ -1,5 +1,6 @@
 from time import sleep
 from os import system, name
+import getpass
 
 menuPrint = """
 1. Agregar producto al carrito
@@ -30,6 +31,33 @@ Productos dispopnibles:
 
 carrito = []
 historialCompras = []
+
+usuarios = {
+    "nvasquez": "panconjamon",
+    "vvasquez": "pancontierra"
+}
+
+def login():
+    try:
+        usuario = input("Ingrese su nombre de usuario: ")
+        if usuario in usuarios:
+            #password = input("Ingrese su clave: ")
+            password = getpass.getpass()
+            if usuarios[usuario] == password:
+                print("Bienvenido invocador")
+                return True
+            else:
+                print("Clave erronea")
+                sleep(2)
+                clear()  
+                raise ValueError()
+        else:
+            print("Este invocador no existe")
+            sleep(2)
+            clear()
+            raise ValueError()
+    except:
+        login()                             
 
 def clear():
     if name == 'nt':
@@ -136,6 +164,7 @@ def historial():
 
 if __name__ == "__main__":
     clear()
+    login()
     opcionElegida = menu()
     while opcionElegida != 6:
         if opcionElegida == 1:
